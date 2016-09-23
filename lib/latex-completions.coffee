@@ -15,6 +15,10 @@ module.exports =
       type: 'string'
       default: '.source, .text'
       description: 'Enable completions under these scopes:'
+    disabledScopes:
+      type: 'string'
+      default: '.tex, .latex'
+      description: 'Disable completions under these scopes:'
 
   activate: ->
     atom.config.get("latex-completions.enableDefaultCompletions") && provider.load()

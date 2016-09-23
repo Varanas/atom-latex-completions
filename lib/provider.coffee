@@ -2,16 +2,21 @@ fs = require 'fs'
 path = require 'path'
 
 module.exports =
-  selector: '.source, .text'
+  scopeSelector: '.source, .text'
+  disableForScopeSelector: '.tex, .latex'
+  textEditorSelectors: 'atom-text-editor'
   filterSuggestions: true
   inclusionPriority: 5
+
+  getTextEditorSelector: -> 'atom-text-editor'
 
   completions: {}
 
   texPattern: /\\([\w\d^-]*)$/
 
   load: (p) ->
-    @selector = atom.config.get("latex-completions.selector")
+    @scopeSelector = atom.config.get("latex-completions.selector")
+    @disableForScopeSelector = atom.config.get("latex-completions.disabledScopes")
     return if p == ''
     p ?= path.resolve(__dirname, '..', 'completions', 'completions.json')
     fs.readFile p, (error, content) =>
